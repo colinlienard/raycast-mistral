@@ -1,3 +1,3 @@
-# Le Chat Changelog
+# Mistral Changelog
 
 ## [Initial Version] - {PR_MERGE_DATE}

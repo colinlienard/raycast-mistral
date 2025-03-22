@@ -1,56 +1,35 @@
-import { Action, ActionPanel, List } from "@raycast/api";
-import { Mistral } from "@mistralai/mistralai";
+import { Action, ActionPanel, List, useNavigation } from "@raycast/api";
 import { useState } from "react";
-
-const apiKey = "qCbFjQvUYfzE3yinWuuBnZKIPVZoJRZm";
-
-const client = new Mistral({ apiKey });
+import { ModelDropdown } from "./components/models-dropdown";
+import { Conversation } from "./components/conversation";
 
 export default function Command() {
   const [question, setQuestion] = useState("");
-  const [response, setResponse] = useState("");
-  const [model, setModel] = useState("mistral-small-latest");
+  const { push } = useNavigation();
 
   async function handleSubmit() {
-    const result = await client.chat.stream({
-      messages: [{ role: "user", content: question }],
-      model,
-    });
-
-    for await (const chunk of result) {
-      const streamText = chunk.data.choices[0].delta.content;
-      setResponse((previous) => previous + streamText);
+    if (question.length) {
+      push(<Conversation question={question} />);
     }
   }
 
   return (
     <List
-      searchBarPlaceholder="Ask Le Chat"
+      searchBarPlaceholder="Ask Mistral"
       searchText={question}
       onSearchTextChange={(text) => setQuestion(text)}
-      isShowingDetail={!!response}
+      searchBarAccessory={<ModelDropdown />}
       actions={
         <ActionPanel>
           <Action title="Ask" onAction={handleSubmit} />
         </ActionPanel>
       }
-      searchBarAccessory={
-        <List.Dropdown tooltip="Model" onChange={(value) => setModel(value)}>
-          {/* TODO: fetch models from API */}
-          <List.Dropdown.Item title="Mistral Small Latest" value="mistral-small-latest" />
-        </List.Dropdown>
-      }
     >
-      {response ? (
-        // TODO: multiple chats
-        <List.Item title="TODO" subtitle="TODO" detail={<List.Item.Detail markdown={response} />} />
-      ) : (
-        <List.EmptyView
-          title="Ask Le Chat"
-          description="Type your message and hit enter"
-          icon={{ source: "mistral-logo.svg" }}
-        />
-      )}
+      <List.EmptyView
+        icon={{ source: "mistral-logo.svg" }}
+        title="Ask Mistral"
+        description="Type your message and hit enter"
+      />
     </List>
   );
 }

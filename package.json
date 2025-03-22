@@ -1,8 +1,8 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "le-chat",
-  "title": "Le Chat",
-  "description": "An unofficial extension to use Mistral AI's Le Chat",
+  "name": "mistral",
+  "title": "Mistral",
+  "description": "An unofficial extension to use Mistral AI",
   "icon": "mistral-logo.svg",
   "author": "colinlienard",
   "categories": [
@@ -12,9 +12,16 @@
   "commands": [
     {
       "name": "ask",
-      "title": "Ask Le Chat",
+      "title": "Ask Mistral",
       "subtitle": "New chat",
       "description": "Create a new chat",
+      "mode": "view"
+    },
+    {
+      "name": "conversations",
+      "title": "Conversations",
+      "subtitle": "jsp",
+      "description": "Browse your past conversations",
       "mode": "view"
     }
   ],

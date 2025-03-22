@@ -1,3 +1,3 @@
-# Le Chat
+# Mistral
 
-An unofficial extension to use Mistral AI's Le Chat
+An unofficial extension to use Mistral AI
