@@ -9,7 +9,13 @@ export default function Command() {
 
   async function handleSubmit() {
     if (question.length) {
-      push(<Conversation question={question} />);
+      const newConversation = {
+        id: Math.random().toString(36).slice(7),
+        title: question,
+        date: new Date().toString(),
+        chats: [{ question, answer: "" }],
+      };
+      push(<Conversation conversation={newConversation} />);
     }
   }
 

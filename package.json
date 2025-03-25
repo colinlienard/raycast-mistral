@@ -13,16 +13,27 @@
     {
       "name": "ask",
       "title": "Ask Mistral",
-      "subtitle": "New chat",
-      "description": "Create a new chat",
+      "subtitle": "New conversation",
+      "description": "Create a new conversation",
       "mode": "view"
     },
     {
       "name": "conversations",
       "title": "Conversations",
-      "subtitle": "jsp",
+      "subtitle": "Mistral",
       "description": "Browse your past conversations",
       "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "apiKey",
+      "label": "API Key",
+      "title": "API Key",
+      "description": "Your Mistral API key",
+      "placeholder": "Your Mistral API key",
+      "required": true,
+      "type": "password"
     }
   ],
   "scripts": {
