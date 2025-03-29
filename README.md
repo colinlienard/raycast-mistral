@@ -1,8 +1,8 @@
 <div align="center">
 
-![logo](./assets/mistral-logo.svg)
+<img src="./assets/mistral-logo.svg" alt="Mistral Logo" height="64px" />
 
-# Mistral
+# Mistral Raycast Extension
 
 An unofficial extension to use Mistral AI from Raycast
 
@@ -18,7 +18,7 @@ An unofficial extension to use Mistral AI from Raycast
 
 ## Setup API Key
 
-Go to the [Mistral AI console website](https://console.mistral.ai/api-keys), create an account if you don't have one, and create a new API key.
+Go to the [Mistral AI console website](https://console.mistral.ai/api-keys), create an account if you don't have one, and create a new API key (you might have to wait one minute before the API key is ready).
 
 ## License
 
