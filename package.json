@@ -2,8 +2,8 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "mistral",
   "title": "Mistral",
-  "description": "An unofficial extension to use Mistral AI",
-  "icon": "mistral-logo.svg",
+  "description": "An unofficial extension to use Mistral AI from Raycast",
+  "icon": "mistral-logo.png",
   "author": "colinlienard",
   "categories": [
     "Productivity"
@@ -12,8 +12,8 @@
   "commands": [
     {
       "name": "ask",
-      "title": "Ask Mistral",
-      "subtitle": "New conversation",
+      "title": "Ask Question",
+      "subtitle": "Mistral",
       "description": "Create a new conversation",
       "mode": "view"
     },
