@@ -3,13 +3,13 @@ import { useForm } from "@raycast/utils";
 import { useSystemPrompt } from "./hooks/use-system-prompt";
 
 export default function Command() {
-  const { value: systemPrompt, setValue: setSystemPrompt } = useSystemPrompt();
+  const { value: systemPrompt, setValue: setSystemPrompt, isLoading } = useSystemPrompt();
   const { handleSubmit } = useForm<{ systemPrompt: string }>({
     onSubmit(values) {
       setSystemPrompt(values.systemPrompt);
       showToast({
         style: Toast.Style.Success,
-        title: "System Prompt Set",
+        title: "System Prompt Saved",
       });
     },
   });
@@ -18,16 +18,18 @@ export default function Command() {
     <Form
       actions={
         <ActionPanel>
-          <Action.SubmitForm title="Submit Description" onSubmit={handleSubmit} />
+          <Action.SubmitForm title="Save System Prompt" onSubmit={handleSubmit} />
         </ActionPanel>
       }
     >
-      <Form.TextArea
-        id="systemPrompt"
-        value={systemPrompt}
-        title="System Prompt"
-        placeholder="Set the system prompt for your upcoming conversations"
-      />
+      {!isLoading && (
+        <Form.TextArea
+          id="systemPrompt"
+          defaultValue={systemPrompt}
+          title="System Prompt"
+          placeholder="Set the system prompt for your upcoming conversations"
+        />
+      )}
     </Form>
   );
 }
