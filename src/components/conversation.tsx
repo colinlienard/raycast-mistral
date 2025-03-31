@@ -5,6 +5,7 @@ import { ModelDropdown } from "./models-dropdown";
 import { useCurrentModel } from "../hooks/use-current-model";
 import { client } from "../utils/mistral-client";
 import { showFailureToast } from "@raycast/utils";
+import { getSystemPrompt } from "../hooks/use-system-prompt";
 
 type Props = {
   conversation: ConversationType;
@@ -35,17 +36,22 @@ export function Conversation({ conversation }: Props) {
     setIsLoading(true);
     const toast = await showToast({ title: "Thinking...", style: Toast.Style.Animated });
     const conversations = await getConversations();
+    const systemPrompt = await getSystemPrompt();
 
     try {
-      const messages = [...chats]
+      const previousMessages = [...chats]
         .reverse()
-        .reduce<{ role: "user" | "assistant"; content: string }[]>((previous, current) => {
+        .reduce<{ role: "system" | "user" | "assistant"; content: string }[]>((previous, current) => {
           if (!current.answer) return previous;
           previous.push({ role: "user", content: current.question });
           previous.push({ role: "assistant", content: current.answer });
           return previous;
-        }, [])
-        .concat([{ role: "user", content: question }]);
+        }, []);
+      const messages = [
+        ...(systemPrompt ? [{ role: "system" as const, content: systemPrompt }] : []),
+        ...previousMessages,
+        { role: "user" as const, content: question },
+      ];
       const result = await client.chat.stream({
         messages,
         model: model ?? "mistral-small-latest",
