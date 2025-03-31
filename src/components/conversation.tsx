@@ -4,6 +4,7 @@ import { Conversation as ConversationType, getConversations, setConversations } 
 import { ModelDropdown } from "./models-dropdown";
 import { useCurrentModel } from "../hooks/use-current-model";
 import { client } from "../utils/mistral-client";
+import { showFailureToast } from "@raycast/utils";
 
 type Props = {
   conversation: ConversationType;
@@ -17,8 +18,8 @@ export function Conversation({ conversation }: Props) {
 
   const hasRunEffect = useRef(false);
   useEffect(() => {
-    if (!hasRunEffect.current && chats[0].answer === "") {
-      streamAnswer(chats[0].question);
+    if (!hasRunEffect.current && conversation.chats[0].answer === "") {
+      streamAnswer(conversation.chats[0].question);
       hasRunEffect.current = true;
     }
   }, []);
@@ -71,11 +72,11 @@ export function Conversation({ conversation }: Props) {
 
       toast.hide();
     } catch (error) {
-      toast.title = "Error occurred";
-      toast.style = Toast.Style.Failure;
-      if (error instanceof Error) {
-        toast.message = error.message;
-      }
+      showFailureToast(error, {
+        title: "Could not stream answer",
+        message:
+          "Your API key may be invalid. If you just created it, you may need to wait a few minutes for it to become active.",
+      });
     }
 
     setIsLoading(false);
